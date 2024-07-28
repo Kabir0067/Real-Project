@@ -21,4 +21,15 @@ urlpatterns = [
     path('feedback/create/', FeedbackCreateView.as_view(), name='feedback_create'),
     path('feedback/<int:pk>/update/', FeedbackUpdateView.as_view(), name='feedback_update'),
     path('feedback/<int:pk>/delete/', FeedbackDeleteView.as_view(), name='feedback_delete'),
+    
+    # Average  endpoints
+    path('average-time/<str:pk>/', Report.as_view(), name='average-time'),
+    path('average-attendance/', AverageAttendanceReport.as_view(), name='average-attendance'),
+    path('average-attendance/<str:group_name>/', AverageGroupAttendanceReport.as_view(), name='average-attendance'),
+    
+    
+     # Average  endpoints False
+    path('average-time_false/<str:pk>/', ReportFalse.as_view(), name='average-time_False'),
+    path('average-attendance_false/', AverageAttendanceReportFalse.as_view(), name='average-attendance_False'),
+    path('average-attendance_false/<str:group_name>/', AverageGroupAttendanceReportFalse.as_view(), name='average-attendance_False'),
 ]
