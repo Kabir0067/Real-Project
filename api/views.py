@@ -1,99 +1,46 @@
+from datetime import datetime, timedelta
+from collections import defaultdict
+from django.shortcuts import render
+from django.utils.timezone import make_aware
 from django.db.models import Avg, F, ExpressionWrapper, fields
 from rest_framework.views import APIView
-from django.shortcuts import render
-from .serializers import *
 from rest_framework.generics import *
-from .models import *
-from django.utils.timezone import make_aware
-from datetime import datetime, timedelta
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
-from collections import defaultdict
-import django_filters
-from rest_framework import filters
+from .serializers import *
+from .models import *
+from .filters import *
 
 
-
-
-
-class CustomerUserFilter(django_filters.FilterSet):
-    is_active = django_filters.BooleanFilter(field_name='is_active', lookup_expr='exact')
-
-    class Meta:
-        model = CustomerUser
-        fields = ['is_active']
 
 # CRUD CustomerUser
-class CustomerUserListView(ListAPIView):
+class CustomerUserViewSet(viewsets.ModelViewSet):
     queryset = CustomerUser.objects.all()
     serializer_class = CustomerUserSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_class = CustomerUserFilter
-    search_fields = ['group_name'] 
-    
-    
-class CustomerUserCreateView(CreateAPIView):
-     queryset=CustomerUser.objects.all()      
-     serializer_class=CustomerUserSerializer
-
-class CustomerUserUpdateView(UpdateAPIView):
-     queryset=CustomerUser.objects.all()      
-     serializer_class=CustomerUserSerializer
-
-class CustomerUserDeleteView(DestroyAPIView):
-     queryset=CustomerUser.objects.all()      
-     serializer_class=CustomerUserSerializer
+    search_fields = ['group_name']
 
 
 #CRUD ComeAndWent
-class ComeAndWentListView(ListAPIView):
-     queryset=ComeAndWent.objects.all()      
-     serializer_class=ComeAndWentSerializer
-
-class ComeAndWentCreateView(CreateAPIView):
-     queryset=ComeAndWent.objects.all()      
-     serializer_class=ComeAndWentSerializer
-
-class ComeAndWentUpdateView(UpdateAPIView):
-     queryset=ComeAndWent.objects.all()      
-     serializer_class=ComeAndWentSerializer
-
-class ComeAndWentDeleteView(DestroyAPIView):
-     queryset=ComeAndWent.objects.all()      
-     serializer_class=ComeAndWentSerializer
-
+class ComeAndWentViewSet(viewsets.ModelViewSet):
+    queryset = ComeAndWent.objects.all()
+    serializer_class = ComeAndWentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ComeAndWentFilter
+    
 
 #CRUD Feedback
-class FeedbackListView(ListAPIView):
-     queryset=Feedback.objects.all()      
-     serializer_class=FeedbackSerializer
-
-class FeedbackCreateView(CreateAPIView):
-     queryset=Feedback.objects.all()      
-     serializer_class=FeedbackSerializer
-
-class FeedbackUpdateView(UpdateAPIView):
-     queryset=Feedback.objects.all()      
-     serializer_class=FeedbackSerializer
-
-class FeedbackDeleteView(DestroyAPIView):
-     queryset=Feedback.objects.all()      
-     serializer_class=FeedbackSerializer
-
-#Detail CustomerUserSerializer
-class StudentDetailView(RetrieveAPIView):
-    queryset = CustomerUser.objects.all()
-    serializer_class = CustomerStudentSerializer
+class FeedbackViewSet(viewsets.ModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = FeedbackFilter
+     
 
 
-#Giriftani Hammai malumothoi users
-class AllUsersListView(ListAPIView):
-    queryset = CustomerUser.objects.all()
-    serializer_class = CustomerStudentSerializer
- 
-    
 #Giriftani avirage soati omadai 1 student
 class Report(APIView):
     def get(self, request, pk):
@@ -164,7 +111,7 @@ class AverageAttendanceReport(APIView):
         }, status=status.HTTP_200_OK)
 
 
-#Giriftani Average group bo studenthjyash
+#Giriftani Average group bo studenthoyash
 class AverageGroupAttendanceReport(APIView):
     def get(self, request, group_name):
         active_students = CustomerUser.objects.filter(is_active=True, group_name=group_name)
@@ -202,7 +149,6 @@ class AverageGroupAttendanceReport(APIView):
             'attendance_data': sorted_attendance_data
         }, status=status.HTTP_200_OK)
         
-
 
 #Giriftani avirage soati omadai 1 student False
 class ReportFalse(APIView):
@@ -274,7 +220,7 @@ class AverageAttendanceReportFalse(APIView):
         }, status=status.HTTP_200_OK)
 
 
-#Giriftani Average group bo studenthjyash False
+#Giriftani Average group bo studentho False
 class AverageGroupAttendanceReportFalse(APIView):
     def get(self, request, group_name):
         active_students = CustomerUser.objects.filter(is_active=False, group_name=group_name)

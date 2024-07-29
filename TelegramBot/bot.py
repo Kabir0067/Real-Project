@@ -320,6 +320,7 @@ def check_user_data_and_ask_for_missing(user_id, message):
         msg = bot.send_message(user_id, 'Санаи тавалудатонро дохил кунед бо ин тарз: (YYYY-MM-DD) 😊')
         bot.register_next_step_handler(msg, update_date_of_birth)
     else:
+        bot.send_message(message.chat.id, 'Шумо бо мувафақият ба қайд гирифта шудед.')
         send_message_bot(user_id)
 
 

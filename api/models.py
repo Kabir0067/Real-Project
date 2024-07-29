@@ -14,6 +14,10 @@ class CustomerUser(models.Model):
     is_active = models.BooleanField(default=True)
     registration_date = models.DateTimeField(blank=True, null=True)
    
+    def __str__(self):
+        return self.user_id
+   
+   
 class ComeAndWent(models.Model):
     user = models.ForeignKey(CustomerUser, related_name='come_and_went_records', on_delete=models.CASCADE)
     time_to_come = models.DateTimeField(blank=True, null=True)
@@ -21,12 +25,18 @@ class ComeAndWent(models.Model):
     absent_reason = models.TextField(blank=True, null=True)
     late_reason = models.TextField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.user_id
+    
 
 class Feedback(models.Model):
     feedback_text = models.TextField(blank=True, null=True)
     submission_time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     user = models.ForeignKey(CustomerUser, related_name='feedbacks', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user_id
 
 
 

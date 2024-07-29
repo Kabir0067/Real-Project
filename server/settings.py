@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'telegbot_db',
+        'NAME': 'telegram_bot_db',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',  

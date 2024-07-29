@@ -10,7 +10,7 @@ class CustomerUserAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'first_name', 'username', 'group_name', 'phone_number', 'registration_date', 'is_active')
     list_filter = ('group_name', 'is_active')
     search_fields = ('user_id', 'first_name', 'last_name', 'username', 'group_name')
-
+    ordering = ('-is_active',) 
 
 class ComeAndWentAdmin(admin.ModelAdmin):
     list_display = ('get_full_name', 'time_to_come', 'time_to_go', 'late_reason', 'absent_reason', 'date')
