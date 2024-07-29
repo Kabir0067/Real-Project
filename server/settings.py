@@ -1,8 +1,9 @@
 from pathlib import Path
+from .env import *  
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'django-insecure-bo#^3ea58p&kekx^m$##)zuhpe-7v-x4zi9(_!n!+n0*rz14w8'
+SECRET_KEY = SECRET_KEY_STNG
 
 DEBUG = True
 
@@ -61,11 +62,11 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'telegram_bot_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',  
-        'PORT': '5432',        
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_pass,
+        'HOST': db_host,  
+        'PORT': db_post,        
     }
 }
 
