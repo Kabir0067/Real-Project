@@ -21,11 +21,9 @@ class CustomerUserSerializer(serializers.ModelSerializer):
 class CustomerStudentSerializer(serializers.ModelSerializer):
     come_and_went_records = ComeAndWentSerializer(many=True, read_only=True)
     feedbacks = FeedbackSerializer(many=True, read_only=True)
-
     class Meta:
         model = CustomerUser
         fields = ['user_id', 'first_name', 'last_name', 'username', 'group_name', 'address',
                   'phone_number', 'email', 'date_of_birth', 'is_active', 'registration_date',
                   'come_and_went_records', 'feedbacks']
-
 
