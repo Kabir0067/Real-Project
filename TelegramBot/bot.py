@@ -715,6 +715,7 @@ def start(message):
         first_name = message.chat.first_name or ''
         last_name = message.chat.last_name or ''
         username = message.chat.username or ''
+        
         registration_date = datetime.now().strftime('%Y-%m-%d %H:%M')
                 
         add_user_in_table(user_id, first_name, last_name, username,registration_date)
@@ -768,7 +769,6 @@ def helping(message):
 def buttons(message):
     send_message_bot(message.chat.id)
 ##########################----------------------------------------------------------------------------------------------##########################
-
 
 #Giriftani nomi guruh
 def get_group_name(message):

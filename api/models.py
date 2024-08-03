@@ -13,7 +13,7 @@ class CustomerUser(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     registration_date = models.DateTimeField(blank=True, null=True)
-   
+    
     def __str__(self):
         return self.user_id
    
